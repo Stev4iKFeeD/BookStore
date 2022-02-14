@@ -5,23 +5,27 @@
     <title>Create book</title>
 </head>
 <body>
-<form action="/create-book" method="post">
-    <label>
-        Title:
-        <input name="title">
-    </label>
-    <br />
-    <label>
-        ISBN:
-        <input name="isbn">
-    </label>
-    <br />
-    <label>
-        Author:
-        <input name="author">
-    </label>
-    <br />
-    <button type="submit">Save</button>
-</form>
+<a href="/books">Back to book list</a>
+<p></p>
+<div>
+    <form action="/create-book" method="post">
+        <label>
+            Title:
+            <input name="title">
+        </label>
+        <br />
+        <label>
+            ISBN:
+            <input name="isbn">
+        </label>
+        <br />
+        <label>
+            Author:
+            <input name="author">
+        </label>
+        <br />
+        <button type="submit">Save</button>
+    </form>
+</div>
 </body>
 </html>
