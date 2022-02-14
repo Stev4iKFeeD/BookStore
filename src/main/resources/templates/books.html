@@ -5,8 +5,12 @@
     <title>Books</title>
 </head>
 <body>
-<p>Title: <span th:text="${book.title}"></span></p>
-<p>ISBN: <span th:text="${book.isbn}"></span></p>
-<p>Author: <span th:text="${book.author}"></span></p>
+<p th:each="book: ${books}">
+    Title: <span th:text="${book.title}"></span>
+    <br />
+    ISBN: <span th:text="${book.isbn}"></span>
+    <br />
+    Author: <span th:text="${book.author}"></span>
+</p>
 </body>
 </html>
