@@ -16,6 +16,11 @@ public class BookController {
         this.BOOK_REPOSITORY = BOOK_REPOSITORY;
     }
 
+    @GetMapping
+    public String redirectToAllBooks() {
+        return "redirect:/books";
+    }
+
     @GetMapping("/books")
     public String allBooks(Model model) {
         model.addAttribute("books", BOOK_REPOSITORY.getAllBooks());
@@ -30,7 +35,7 @@ public class BookController {
     @PostMapping("/create-book")
     public String createBookConfirm(BookDto bookDto) {
         BOOK_REPOSITORY.addBook(bookDto);
-        return "redirect:books";
+        return "redirect:/books";
     }
 
 }
