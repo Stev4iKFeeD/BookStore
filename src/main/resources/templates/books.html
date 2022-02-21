@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
-    <link th:href="@{/styles/styles.css}" rel="stylesheet" />
+    <link th:href="@{/styles/styles.css}" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
 <a href="/create-book">Create book</a>
+
 <h1>Books</h1>
+
+<div>
+    <form id="filters-form">
+        <label>
+            Name:
+            <input id="filter-name" name="name">
+        </label>
+         |
+        <button type="submit">Apply filters</button>
+    </form>
+</div>
+
+<br/>
+
 <table>
     <thead>
-        <tr>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>Author</th>
-        </tr>
+    <tr>
+        <th>Title</th>
+        <th>ISBN</th>
+        <th>Author</th>
+    </tr>
     </thead>
-    <tbody>
+    <tbody id="books-table-body">
     <tr th:each="book: ${books}">
         <td th:text="${book.title}"></td>
         <td th:text="${book.isbn}"></td>
@@ -25,4 +42,7 @@
     </tbody>
 </table>
 </body>
+
+<script th:src="@{/scripts/script.js}"></script>
+
 </html>
