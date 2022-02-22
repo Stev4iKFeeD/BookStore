@@ -2,6 +2,8 @@ package com.example.lab03.controller;
 
 import com.example.lab03.dto.BookDto;
 import com.example.lab03.repository.BookRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +30,18 @@ public class BookRestController {
                     .filter(bookDto -> bookDto.title().contains(name) || bookDto.isbn().contains(name))
                     .collect(Collectors.toList());
         }
+
         return ResponseEntity.ok(booksToReturn);
+    }
+
+    @RequestMapping(value = "/create-book", method = RequestMethod.POST)
+    public ResponseEntity<BookDto> createBook(
+            @RequestBody BookDto bookDto
+    ) {
+        BOOK_REPOSITORY.addBook(bookDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(bookDto);
     }
 
 }

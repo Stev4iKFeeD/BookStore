@@ -8,10 +8,31 @@
 </head>
 
 <body>
-<a href="/create-book">Create book</a>
-
 <h1>Books</h1>
 
+<div>
+    <form id="create-book-form">
+        <label>
+            Title:
+            <input id="create-title" name="title" required>
+        </label>
+         |
+        <label>
+            ISBN:
+            <input id="create-isbn" name="isbn" required>
+        </label>
+         |
+        <label>
+            Author:
+            <input id="create-author" name="author" required>
+        </label>
+         |
+        <button type="reset">Clear</button>
+         |
+        <button type="submit">Create book</button>
+    </form>
+</div>
+<hr/>
 <div>
     <form id="filters-form">
         <label>
@@ -19,7 +40,9 @@
             <input id="filter-name" name="name">
         </label>
          |
-        <button type="submit">Apply filters</button>
+        <button type="reset">Clear</button>
+         |
+        <button type="submit">Apply filter</button>
     </form>
 </div>
 
