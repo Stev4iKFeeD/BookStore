@@ -17,4 +17,8 @@ public class BookRepository {
     public List<BookDto> getAllBooks() {
         return new ArrayList<>(BOOK_REPOSITORY);
     }
+
+    public void clearRepository() {
+        BOOK_REPOSITORY.clear();
+    }
 }
