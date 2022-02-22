@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public final class BookRepository {
+public class BookRepository {
     private static final List<BookDto> BOOK_REPOSITORY = new ArrayList<>();
 
     public void addBook(BookDto bookDto) {
