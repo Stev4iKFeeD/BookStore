@@ -1,6 +1,6 @@
-package com.example.lab03.repository;
+package com.example.bookstore.repository;
 
-import com.example.lab03.dto.BookDto;
+import com.example.bookstore.dto.BookDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

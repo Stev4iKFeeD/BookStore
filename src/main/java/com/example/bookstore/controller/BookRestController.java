@@ -1,7 +1,7 @@
-package com.example.lab03.controller;
+package com.example.bookstore.controller;
 
-import com.example.lab03.dto.BookDto;
-import com.example.lab03.repository.BookRepository;
+import com.example.bookstore.dto.BookDto;
+import com.example.bookstore.repository.BookRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
