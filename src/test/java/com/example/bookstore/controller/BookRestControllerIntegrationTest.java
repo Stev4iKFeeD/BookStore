@@ -43,7 +43,7 @@ class BookRestControllerIntegrationTest {
     @Test
     void createBookTest() throws IOException {
         String jsonString = objectMapper.readTree(
-                BookRestControllerIntegrationTest.class.getResourceAsStream("/createBookTestRequest.json")
+                BookRestControllerIntegrationTest.class.getResourceAsStream("/controller/createBookTestRequest.json")
         ).toString();
         BookDto bookDto = objectMapper.readValue(jsonString, BookDto.class);
 
@@ -67,7 +67,7 @@ class BookRestControllerIntegrationTest {
     void getBooksWithoutFiltersTest() throws IOException {
         String jsonString = objectMapper.readTree(
                 BookRestControllerWebMvcTest.class
-                        .getResourceAsStream("/getBooksWithoutFiltersResponse.json")
+                        .getResourceAsStream("/controller/getBooksWithoutFiltersResponse.json")
         ).toString();
         List<BookDto> bookList = Arrays.asList(objectMapper.readValue(jsonString, BookDto[].class));
         bookList.forEach(bookDto -> bookRepository.addBook(bookDto));
@@ -92,7 +92,7 @@ class BookRestControllerIntegrationTest {
     void getBooksWithFiltersTest() throws IOException {
         String jsonString = objectMapper.readTree(
                 BookRestControllerWebMvcTest.class
-                        .getResourceAsStream("/getBooksWithoutFiltersResponse.json")
+                        .getResourceAsStream("/controller/getBooksWithoutFiltersResponse.json")
         ).toString();
         List<BookDto> bookList = Arrays.asList(objectMapper.readValue(jsonString, BookDto[].class));
         bookList.forEach(bookDto -> bookRepository.addBook(bookDto));

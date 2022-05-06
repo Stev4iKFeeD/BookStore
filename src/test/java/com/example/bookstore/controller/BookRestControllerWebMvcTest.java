@@ -33,7 +33,7 @@ class BookRestControllerWebMvcTest {
     void createBookTest() throws Exception {
         Mockito.doNothing().when(bookRepository).addBook(ArgumentMatchers.any());
         String jsonString = objectMapper.readTree(
-                BookRestControllerWebMvcTest.class.getResourceAsStream("/createBookTestRequest.json")
+                BookRestControllerWebMvcTest.class.getResourceAsStream("/controller/createBookTestRequest.json")
         ).toString();
 
         mockMvc.perform(
@@ -51,7 +51,7 @@ class BookRestControllerWebMvcTest {
     void getBooksWithoutFiltersTest() throws Exception {
         String jsonString = objectMapper.readTree(
                 BookRestControllerWebMvcTest.class
-                        .getResourceAsStream("/getBooksWithoutFiltersResponse.json")
+                        .getResourceAsStream("/controller/getBooksWithoutFiltersResponse.json")
         ).toString();
         List<BookDto> bookList = Arrays.asList(objectMapper.readValue(jsonString, BookDto[].class));
         Mockito.doReturn(bookList).when(bookRepository).getAllBooks();
@@ -69,14 +69,14 @@ class BookRestControllerWebMvcTest {
     void getBooksWithFiltersTest() throws Exception {
         String jsonStringAll = objectMapper.readTree(
                 BookRestControllerWebMvcTest.class
-                        .getResourceAsStream("/getBooksWithFiltersAll.json")
+                        .getResourceAsStream("/controller/getBooksWithFiltersAll.json")
         ).toString();
         List<BookDto> bookList = Arrays.asList(objectMapper.readValue(jsonStringAll, BookDto[].class));
         Mockito.doReturn(bookList).when(bookRepository).getAllBooks();
 
         String jsonStringResponse = objectMapper.readTree(
                 BookRestControllerWebMvcTest.class
-                        .getResourceAsStream("/getBooksWithFiltersResponse.json")
+                        .getResourceAsStream("/controller/getBooksWithFiltersResponse.json")
         ).toString();
 
         mockMvc.perform(
