@@ -1,7 +1,7 @@
 package com.example.bookstore.controller;
 
-import com.example.bookstore.dto.BookDto;
-import com.example.bookstore.repository.BookRepository;
+import com.example.bookstore.entity.BookEntity;
+import com.example.bookstore.service.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,35 +13,34 @@ import java.util.stream.Collectors;
 @RestController
 public class BookRestController {
 
-    private final BookRepository BOOK_REPOSITORY;
+    private final BookService bookService;
 
-    public BookRestController(BookRepository BOOK_REPOSITORY) {
-        this.BOOK_REPOSITORY = BOOK_REPOSITORY;
+    public BookRestController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @RequestMapping(value = "/get-books", method = RequestMethod.GET)
-    public ResponseEntity<List<BookDto>> getFilteredBooks(
-            @RequestParam(value = "name", required = false) String name
+    public ResponseEntity<List<BookEntity>> getFilteredBooks(
+            @RequestParam(value = "filter", required = false) String filter
     ) {
-        List<BookDto> booksToReturn = BOOK_REPOSITORY.getAllBooks();
-        if (name != null) {
-            booksToReturn = booksToReturn
-                    .stream()
-                    .filter(bookDto -> bookDto.title().contains(name) || bookDto.isbn().contains(name))
-                    .collect(Collectors.toList());
+        List<BookEntity> booksToReturn;
+        if (filter == null) {
+            booksToReturn = bookService.getAllBooks();
+        } else {
+            booksToReturn = bookService.getBookByFilter(filter);
         }
 
         return ResponseEntity.ok(booksToReturn);
     }
 
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
-    public ResponseEntity<BookDto> createBook(
-            @RequestBody BookDto bookDto
+    public ResponseEntity<BookEntity> createBook(
+            @RequestBody BookEntity bookEntity
     ) {
-        BOOK_REPOSITORY.addBook(bookDto);
+        BookEntity returnedBookEntity = bookService.createBook(bookEntity);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(bookDto);
+                .body(returnedBookEntity);
     }
 
 }

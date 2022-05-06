@@ -13,13 +13,13 @@
 <div>
     <form id="create-book-form">
         <label>
-            Title:
-            <input id="create-title" name="title" required>
+            ISBN:
+            <input id="create-isbn" name="isbn" required>
         </label>
          |
         <label>
-            ISBN:
-            <input id="create-isbn" name="isbn" required>
+            Title:
+            <input id="create-title" name="title" required>
         </label>
          |
         <label>
@@ -36,8 +36,8 @@
 <div>
     <form id="filters-form">
         <label>
-            Name:
-            <input id="filter-name" name="name">
+            Filter:
+            <input id="filter-filter" name="filter">
         </label>
          |
         <button type="reset">Clear</button>
@@ -51,17 +51,12 @@
 <table>
     <thead>
     <tr>
-        <th>Title</th>
         <th>ISBN</th>
+        <th>Title</th>
         <th>Author</th>
     </tr>
     </thead>
     <tbody id="books-table-body">
-    <tr th:each="book: ${books}">
-        <td th:text="${book.title}"></td>
-        <td th:text="${book.isbn}"></td>
-        <td th:text="${book.author}"></td>
-    </tr>
     </tbody>
 </table>
 </body>

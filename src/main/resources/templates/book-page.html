@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.title}"></title>
+    <link th:href="@{/styles/styles.css}" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+<a href="/books">◄ Повернутися на головну</a>
+
+<h1>Book</h1>
+
+<div>
+    <p>ISBN:
+        <span th:text="${book.isbn}" th:remove="tag"></span>
+    </p>
+    <p>Title:
+        <span th:text="${book.title}" th:remove="tag"></span>
+    </p>
+    <p>Author:
+        <span th:text="${book.author}" th:remove="tag"></span>
+    </p>
+</div>
+</body>
+
+<script th:src="@{/scripts/script.js}"></script>
+
+</html>
