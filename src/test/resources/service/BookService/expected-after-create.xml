@@ -1,8 +1,8 @@
 <dataset>
-    <books isbn="isbn1" title="title1" author="author1"/>
-    <books isbn="isbn2" title="title2" author="author2"/>
-    <books isbn="isbn3" title="title3" author="author3"/>
-    <books isbn="isbn123" title="title123" author="author123"/>
+    <book isbn="isbn1" title="title1" author="author1"/>
+    <book isbn="isbn2" title="title2" author="author2"/>
+    <book isbn="isbn3" title="title3" author="author3"/>
+    <book isbn="isbn123" title="title123" author="author123"/>
 
-    <books isbn="isbnnew" title="titlenew" author="authornew"/>
+    <book isbn="isbnnew" title="titlenew" author="authornew"/>
 </dataset>

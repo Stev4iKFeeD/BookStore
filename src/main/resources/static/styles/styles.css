@@ -66,3 +66,38 @@ table tbody tr:last-child td:last-child {
 .clickable-row:hover {
     background: #ddd;
 }
+
+#paginator-previous-active {
+    /*border: 1px solid black;*/
+    color: black;
+    cursor: pointer;
+    float: left;
+}
+
+#paginator-previous-inactive {
+    /*border: 1px solid lightgray;*/
+    color: lightgray;
+    cursor: auto;
+    float: left;
+}
+
+#paginator-next-active {
+    /*border: 1px solid black;*/
+    color: black;
+    cursor: pointer;
+    float: right;
+}
+
+#paginator-next-inactive {
+    /*border: 1px solid lightgray;*/
+    color: lightgray;
+    cursor: auto;
+    float: right;
+}
+
+#paginator-page {
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}

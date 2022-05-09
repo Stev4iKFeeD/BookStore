@@ -1,5 +1,7 @@
 $(function () {
     let currentFilter = '';
+    let currentPage = 0;
+    const pageSize = 10;
 
     function addClickableLogic() {
         $('.clickable-row').each(function () {
@@ -25,12 +27,47 @@ $(function () {
         addClickableLogic();
     }
 
+    let $paginatorPrevious = $('#paginator-previous-inactive');
+    let $paginatorNext = $('#paginator-next-inactive');
+    let $paginatorPage = $('#paginator-page');
+    function reloadPaginator(hasPrevious, hasNext) {
+        if (hasPrevious) {
+            $paginatorPrevious.attr('id', 'paginator-previous-active');
+            $paginatorPrevious.click(function () {
+                currentPage--;
+                loadBooks();
+            });
+        } else {
+            $paginatorPrevious.attr('id', 'paginator-previous-inactive');
+            $paginatorPrevious.click(() => {});
+        }
+
+        if (hasNext) {
+            $paginatorNext.attr('id', 'paginator-next-active');
+            $paginatorNext.click(function () {
+                currentPage++;
+                loadBooks();
+            });
+        } else {
+            $paginatorNext.attr('id', 'paginator-next-inactive');
+            $paginatorNext.click(() => {});
+        }
+
+        $paginatorPage.html(currentPage + 1);
+    }
+
     function loadBooks() {
         $.ajax({
             type: 'GET',
-            url: '/get-books?filter=' + currentFilter,
+            url: '/get-books',
+            data: {
+                'filter': currentFilter,
+                'page': currentPage,
+                'page-size': pageSize
+            },
             success: function (response) {
-                updateBookTable(response)
+                updateBookTable(response['data']);
+                reloadPaginator(response['hasPrevious'], response['hasNext']);
             }
         });
     }

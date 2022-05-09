@@ -1,48 +1,44 @@
 package com.example.bookstore.service;
 
 import com.example.bookstore.entity.BookEntity;
+import com.example.bookstore.repository.BookJpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class BookService {
 
-    private final EntityManager entityManager;
+    private final BookJpaRepository bookRepository;
 
-    public BookService(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public BookService(BookJpaRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @Transactional
     public BookEntity createBook(BookEntity bookEntity) {
-        return entityManager.merge(bookEntity);
+        return bookRepository.saveAndFlush(bookEntity);
+    }
+
+    public BookEntity createBook(String isbn, String title, String author) {
+        return createBook(new BookEntity(isbn, title, author));
     }
 
     @Transactional
-    public List<BookEntity> getAllBooks() {
-        return entityManager.createQuery("SELECT b FROM BookEntity b", BookEntity.class).getResultList();
+    public Page<BookEntity> getAllBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Transactional
     public BookEntity getBookByIsbn(String isbn) {
-        return entityManager.find(BookEntity.class, isbn);
+        return bookRepository.findById(isbn).orElse(null);
     }
 
     @Transactional
-    public List<BookEntity> getBookByFilter(String filter) {
-        return entityManager.createQuery(
-                        """
-                                SELECT b
-                                FROM BookEntity b
-                                WHERE b.isbn LIKE :filter OR
-                                      b.title LIKE :filter OR
-                                      b.author LIKE :filter
-                                """, BookEntity.class
-                ).setParameter("filter", "%" + filter + "%")
-                .getResultList();
+    public Page<BookEntity> getBookByFilter(String filter, Pageable pageable) {
+        return bookRepository.findByIsbnOrTitle("%" + filter + "%", pageable);
     }
 
 }
