@@ -1,10 +1,21 @@
 package com.example.bookstore.dto;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 public class UserSignUpDto {
+    @NotEmpty
+    @Pattern(regexp = "[a-zA-Z0-9]", message = "Login should contain latin letters or numbers only")
     private String login;
+
+    @NotEmpty
+    @Length(min = 8, max = 20, message = "Password should be 8-20 characters long")
     private String password;
+
+    @NotEmpty
     private String name;
 
     public String getLogin() {
@@ -29,6 +40,10 @@ public class UserSignUpDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserSignUpDto() {
+
     }
 
     public UserSignUpDto(String login, String password, String name) {

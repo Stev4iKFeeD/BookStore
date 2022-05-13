@@ -20,11 +20,11 @@
 <h1>Books</h1>
 
 <div th:if="${#authorization.expression('hasAuthority(''CREATE_BOOK'')')}">
-    <div>
+    <div id="create-book-form-container">
         <form id="create-book-form">
             <label>
                 ISBN:
-                <input id="create-isbn" name="isbn" required>
+                <input id="create-isbn" name="isbn" required pattern="[\\d]" minlength="13" maxlength="13">
             </label>
             |
             <label>

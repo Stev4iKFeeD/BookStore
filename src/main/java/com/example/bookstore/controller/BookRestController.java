@@ -1,6 +1,7 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.Defaults;
+import com.example.bookstore.IsbnValidator;
 import com.example.bookstore.dto.BookDto;
 import com.example.bookstore.dto.UserSignUpDto;
 import com.example.bookstore.entity.BookEntity;
@@ -17,12 +18,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.MapBindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Collections;
+import java.util.HashMap;
 
 @RestController
 public class BookRestController {
@@ -74,13 +81,22 @@ public class BookRestController {
     }
 
     @RequestMapping(value = "/create-book", method = RequestMethod.POST)
-    public ResponseEntity<BookEntity> createBook(
-            @RequestBody BookEntity bookEntity
-    ) {
-        BookEntity returnedBookEntity = bookService.createBook(bookEntity);
+    public ResponseEntity<BookDto> createBook(
+            @Valid @RequestBody BookDto bookDto
+    ) throws MethodArgumentNotValidException {
+        if (!IsbnValidator.validate(bookDto.getIsbn())) {
+            BindingResult bindingResult = new MapBindingResult(new HashMap<>(), "bookDto");
+            bindingResult.addError(new FieldError("bookDto", "isbn", "ISBN is not valid"));
+            throw new MethodArgumentNotValidException(null, bindingResult);
+        }
+
+        BookEntity returnedBookEntity = bookService.createBook(
+                new BookEntity(bookDto.getIsbn(), bookDto.getTitle(), bookDto.getAuthor()));
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(returnedBookEntity);
+                .body(new BookDto(
+                        returnedBookEntity.getIsbn(), returnedBookEntity.getTitle(), returnedBookEntity.getAuthor()
+                ));
     }
 
     @RequestMapping(value = "/favourites", method = RequestMethod.GET)
@@ -148,7 +164,7 @@ public class BookRestController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<String> signUp(
-            @RequestBody UserSignUpDto userSignUpDto
+            @Valid @RequestBody UserSignUpDto userSignUpDto
     ) {
         if (userService.existsUserByLogin(userSignUpDto.getLogin())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

@@ -14,12 +14,12 @@
     <form id="sign-up-form">
         <label>
             Login:
-            <input id="sign-up-login" name="login" required>
+            <input id="sign-up-login" name="login" required pattern="[a-zA-Z0-9]">
         </label>
         <br/>
         <label>
             Password:
-            <input id="sign-up-password" name="password" type="password" required>
+            <input id="sign-up-password" name="password" type="password" required minlength="8" maxlength="20">
         </label>
         <br/>
         <label>

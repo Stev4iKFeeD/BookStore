@@ -75,6 +75,8 @@ $(function () {
     }
 
     function createBook(isbn, title, author) {
+        $('.create-book-error').remove();
+        
         $.ajax({
             type: 'POST',
             url: '/create-book',
@@ -87,28 +89,38 @@ $(function () {
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json')
             },
-            success: function (response) {
-                /**
-                 * Creating book without getting all books again
-                 */
+            statusCode: {
+                400: function (response) {
+                    let $container = $('#create-book-form-container');
+                    response.responseJSON.forEach(function (error) {
+                        $container.prepend(
+                            "<h3 class='create-book-error'>" + error +"</h3>"
+                        );
+                    });
+                },
+                200: function (response) {
+                    /**
+                     * Creating book without getting all books again
+                     */
 
-                // let $isbn = response.isbn;
-                // let $title = response.title;
-                // let $author = response.author;
-                //
-                // if (currentFilter ^ ($isbn.includes(currentFilter) || $title.includes(currentFilter) || $author.includes(currentFilter))) {
-                //     $('#books-table-body').append(
-                //         '<tr>' +
-                //         '<td>' + $isbn + '</td>' +
-                //         '<td>' + $title + '</td>' +
-                //         '<td>' + $author + '</td>' +
-                //         '</tr>'
-                //     );
-                // }
+                    // let $isbn = response.isbn;
+                    // let $title = response.title;
+                    // let $author = response.author;
+                    //
+                    // if (currentFilter ^ ($isbn.includes(currentFilter) || $title.includes(currentFilter) || $author.includes(currentFilter))) {
+                    //     $('#books-table-body').append(
+                    //         '<tr>' +
+                    //         '<td>' + $isbn + '</td>' +
+                    //         '<td>' + $title + '</td>' +
+                    //         '<td>' + $author + '</td>' +
+                    //         '</tr>'
+                    //     );
+                    // }
 
-                /////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////
 
-                loadBooks();
+                    loadBooks();
+                }
             }
         });
     }

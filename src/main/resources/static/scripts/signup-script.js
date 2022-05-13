@@ -1,7 +1,7 @@
 $(function () {
     $('#sign-up-form').submit(function (e) {
         e.preventDefault();
-        $('#sign-up-user-already-exists').remove();
+        $('.sign-up-error').remove();
 
         $.ajax({
             type: 'POST',
@@ -16,9 +16,17 @@ $(function () {
                 xhr.setRequestHeader('Content-Type', 'application/json')
             },
             statusCode: {
+                400: function (response) {
+                    let $form = $('#sign-up-form');
+                    response.responseJSON.forEach(function (error) {
+                        $form.prepend(
+                            "<h3 class='sign-up-error'>" + error +"</h3>"
+                        );
+                    });
+                },
                 409: function () {
                     $('#sign-up-form').prepend(
-                        "<h3 id='sign-up-user-already-exists'>Login is already taken</h3>"
+                        "<h3 id='sign-up-error'>Login is already taken</h3>"
                     );
                 },
                 200: function () {
