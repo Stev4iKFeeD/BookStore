@@ -9,7 +9,7 @@ $(function () {
             $row.click(function () {
                 let $isbn = $row.children().eq(0).html();
                 document.location.href = '/books/' + $isbn;
-            })
+            });
         });
     }
 
@@ -39,7 +39,8 @@ $(function () {
             });
         } else {
             $paginatorPrevious.attr('id', 'paginator-previous-inactive');
-            $paginatorPrevious.click(() => {});
+            // $paginatorPrevious.click(() => {});
+            $paginatorPrevious.unbind().click();
         }
 
         if (hasNext) {
@@ -50,7 +51,8 @@ $(function () {
             });
         } else {
             $paginatorNext.attr('id', 'paginator-next-inactive');
-            $paginatorNext.click(() => {});
+            // $paginatorNext.click(() => {});
+            $paginatorNext.unbind().click();
         }
 
         $paginatorPage.html(currentPage + 1);

@@ -1,9 +1,7 @@
 package com.example.bookstore.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,11 +12,14 @@ public class BookEntity {
     @Column(name = "isbn")
     private String isbn;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "author")
     private String author;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "favourites")
+    private List<UserEntity> usersInFavourites;
 
     public String getIsbn() {
         return isbn;
@@ -59,7 +60,9 @@ public class BookEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookEntity that = (BookEntity) o;
-        return Objects.equals(isbn, that.isbn) && Objects.equals(title, that.title) && Objects.equals(author, that.author);
+        return Objects.equals(isbn, that.isbn)
+                && Objects.equals(title, that.title)
+                && Objects.equals(author, that.author);
     }
 
     @Override

@@ -1,4 +1,5 @@
 h1 {
+    clear: both;
     text-align: center;
 }
 
@@ -100,4 +101,46 @@ table tbody tr:last-child td:last-child {
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
+}
+
+.header-right {
+    float: right;
+    margin-left: 10px;
+}
+
+.not-in-favourites {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    text-align: center;
+    background: lightgray;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.not-in-favourites:hover {
+    background: #d8ffa8;
+    cursor: pointer;
+    border: 1px dashed black;
+}
+
+.in-favourites {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    text-align: center;
+    background: #baff5c;
+    border: 1px solid black;
+}
+
+.in-favourites:hover {
+    background: #ff9898;
+    cursor: pointer;
+    border: 1px dashed black;
+}
+
+#sign-up-form {
+    width: fit-content;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }

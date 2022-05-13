@@ -8,40 +8,51 @@
 </head>
 
 <body>
+<div th:if="${#authorization.expression('isAnonymous()')}">
+    <a href="/login" class="header-right">Log in</a>
+    <a href="/signup" class="header-right">Sign up</a>
+</div>
+<div th:if="${#authorization.expression('isFullyAuthenticated()')}">
+    <a href="/logout" class="header-right">Log out</a>
+    <a href="/user" class="header-right">Favourites</a>
+</div>
+
 <h1>Books</h1>
 
-<div>
-    <form id="create-book-form">
-        <label>
-            ISBN:
-            <input id="create-isbn" name="isbn" required>
-        </label>
-         |
-        <label>
-            Title:
-            <input id="create-title" name="title" required>
-        </label>
-         |
-        <label>
-            Author:
-            <input id="create-author" name="author" required>
-        </label>
-         |
-        <button type="reset">Clear</button>
-         |
-        <button type="submit">Create book</button>
-    </form>
+<div th:if="${#authorization.expression('hasAuthority(''CREATE_BOOK'')')}">
+    <div>
+        <form id="create-book-form">
+            <label>
+                ISBN:
+                <input id="create-isbn" name="isbn" required>
+            </label>
+            |
+            <label>
+                Title:
+                <input id="create-title" name="title" required>
+            </label>
+            |
+            <label>
+                Author:
+                <input id="create-author" name="author" required>
+            </label>
+            |
+            <button type="reset">Clear</button>
+            |
+            <button type="submit">Create book</button>
+        </form>
+    </div>
+    <hr/>
 </div>
-<hr/>
 <div>
     <form id="filters-form">
         <label>
             Filter:
             <input id="filter-filter" name="filter">
         </label>
-         |
+        |
         <button type="reset">Clear</button>
-         |
+        |
         <button type="submit">Apply filter</button>
     </form>
 </div>
@@ -67,6 +78,6 @@
 </div>
 </body>
 
-<script th:src="@{/scripts/script.js}"></script>
+<script th:src="@{/scripts/books-script.js}"></script>
 
 </html>

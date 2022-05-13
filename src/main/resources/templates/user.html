@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.name}"></title>
+    <link th:href="@{/styles/styles.css}" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+<div>
+    <a href="/logout" class="header-right">Log out</a>
+</div>
+
+<a href="/books">◄ Back to catalog</a>
+
+<h1>
+    <th:block th:text="${user.name}"></th:block> (<th:block th:text="${user.login}"></th:block>)'s favourites
+</h1>
+
+<br/>
+
+<table>
+    <thead>
+    <tr>
+        <th>ISBN</th>
+        <th>Title</th>
+        <th>Author</th>
+    </tr>
+    </thead>
+    <tbody id="favourites-table-body">
+    <tr th:each="book: ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.isbn}"></td>
+        <td th:text="${book.author}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+<script th:src="@{/scripts/user-script.js}"></script>
+
+</html>

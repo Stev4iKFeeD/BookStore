@@ -8,7 +8,15 @@
 </head>
 
 <body>
-<a href="/books">◄ Back to catalogue</a>
+<div th:if="${#authorization.expression('isAnonymous()')}">
+    <a href="/login" class="header-right">Log in</a>
+</div>
+<div th:if="${#authorization.expression('isFullyAuthenticated()')}">
+    <a href="/logout" class="header-right">Log out</a>
+    <a href="/user" class="header-right">Favourites</a>
+</div>
+
+<a href="/books">◄ Back to catalog</a>
 
 <h1>Book</h1>
 
@@ -23,8 +31,12 @@
         <span th:text="${book.author}" th:remove="tag"></span>
     </p>
 </div>
+<div th:if="${#authorization.expression('isFullyAuthenticated()')}">
+    <div class="not-in-favourites">♥</div>
+</div>
 </body>
 
-<script th:src="@{/scripts/script.js}"></script>
+<script th:inline="javascript">const isbn = [[${book.isbn}]];</script>
+<script th:if="${#authorization.expression('isFullyAuthenticated()')}" th:src="@{/scripts/book-page-script.js}"></script>
 
 </html>
